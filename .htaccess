@@ -1,0 +1,20 @@
+# Disable directory listing
+Options -Indexes
+
+# Protect wp-config.php (if not already in a higher-level rule)
+<Files "wp-config.php">
+	<IfModule mod_authz_core.c>
+		Require all denied
+	</IfModule>
+</Files>
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress

@@ -1,0 +1,49 @@
+/*
+ Theme Name:   WP Store Child
+ Theme URI:    https://example.com/wp-store-child
+ Description:  Child theme of WP Store for safe customizations and a polished WordPress site
+ Author:       Your Name
+ Author URI:   https://example.com
+ Template:     wp-store
+ Version:      1.0.0
+ License:      GNU General Public License v2 or later
+ License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+ Text Domain:  wp-store-child
+ Tags:         e-commerce, custom-menu, featured-images, footer-widgets, full-width-template, theme-options
+*/
+
+/* ==========================================================================
+   Child theme overrides and enhancements
+   ========================================================================== */
+
+/* Improve readability and spacing */
+.site-content {
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Refined typography */
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure focus styles for accessibility */
+a:focus,
+button:focus {
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
+}
+
+/* Footer copyright area */
+.site-info .copyright-text {
+	font-size: 0.9rem;
+}
+
+/* Responsive images */
+.entry-content img,
+.widget img {
+	height: auto;
+	max-width: 100%;
+}
