@@ -57,6 +57,34 @@ WP Store is built for WooCommerce. To run a shop:
 | `.htaccess` | Rewrite rules and security (directory listing disabled). |
 | `wp-content/themes/wp-store-child/` | Child theme (style.css, functions.php). |
 
+## Pushing to a remote repository
+
+This project is a Git repo (branch `main`). To push it to a new remote:
+
+### GitHub
+
+1. On [GitHub](https://github.com/new), click **New repository**. Name it (e.g. `wordpress-wp-store`), leave it empty (no README/license), then **Create repository**.
+2. In this project folder, run (replace `YOUR_USERNAME` and `REPO_NAME` with your repo details):
+
+   ```bash
+   git remote add origin https://github.com/YOUR_USERNAME/REPO_NAME.git
+   git push -u origin main
+   ```
+
+   Or with SSH: `git remote add origin git@github.com:YOUR_USERNAME/REPO_NAME.git` then `git push -u origin main`.
+
+### GitLab
+
+1. Create a new project on [GitLab](https://gitlab.com/projects/new) (empty, no README).
+2. Run:
+
+   ```bash
+   git remote add origin https://gitlab.com/YOUR_USERNAME/REPO_NAME.git
+   git push -u origin main
+   ```
+
+**Note:** `wp-config.php` and `wp-salt.php` are in `.gitignore` and are not pushed. After cloning elsewhere, copy `wp-config-sample.php` to `wp-config.php` and set your database and salts.
+
 ## Support
 
 - [WordPress Codex](https://codex.wordpress.org/)
