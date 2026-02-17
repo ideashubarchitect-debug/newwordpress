@@ -44,6 +44,69 @@ function wp_store_child_setup(): void {
 add_action( 'after_setup_theme', 'wp_store_child_setup' );
 
 /**
+ * Add body class for this website (child theme active).
+ */
+function wp_store_child_body_classes( array $classes ): array {
+	$classes[] = 'wp-store-child-site';
+	return $classes;
+}
+add_filter( 'body_class', 'wp_store_child_body_classes' );
+
+/**
+ * Add Customizer option for accent color (output in head).
+ */
+function wp_store_child_customize_register( WP_Customize_Manager $wp_customize ): void {
+	$wp_customize->add_section( 'wp_store_child_options', array(
+		'title'    => __( 'This Website (Child Theme)', 'wp-store-child' ),
+		'priority' => 30,
+	) );
+
+	$wp_customize->add_setting( 'wp_store_child_accent_color', array(
+		'default'           => '#e85d04',
+		'sanitize_callback' => 'sanitize_hex_color',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'wp_store_child_accent_color', array(
+		'label'   => __( 'Accent color', 'wp-store-child' ),
+		'section' => 'wp_store_child_options',
+	) ) );
+}
+add_action( 'customize_register', 'wp_store_child_customize_register' );
+
+/**
+ * Output custom accent color as CSS variables when set in Customizer.
+ */
+function wp_store_child_accent_css(): void {
+	$accent = get_theme_mod( 'wp_store_child_accent_color', '' );
+	if ( empty( $accent ) ) {
+		return;
+	}
+	?>
+	<style id="wp-store-child-accent">
+		:root {
+			--wpstore-child-color-primary: <?php echo esc_attr( $accent ); ?>;
+			--wpstore-child-color-primary-dark: <?php echo esc_attr( wp_store_child_darken( $accent, 10 ) ); ?>;
+		}
+	</style>
+	<?php
+}
+add_action( 'wp_head', 'wp_store_child_accent_css', 100 );
+
+/**
+ * Darken a hex color by a percentage (simple version).
+ */
+function wp_store_child_darken( string $hex, int $percent ): string {
+	$hex = ltrim( $hex, '#' );
+	if ( strlen( $hex ) !== 6 ) {
+		return $hex;
+	}
+	$r = max( 0, min( 255, hexdec( substr( $hex, 0, 2 ) ) * ( 1 - $percent / 100 ) ) );
+	$g = max( 0, min( 255, hexdec( substr( $hex, 2, 2 ) ) * ( 1 - $percent / 100 ) ) );
+	$b = max( 0, min( 255, hexdec( substr( $hex, 4, 2 ) ) * ( 1 - $percent / 100 ) ) );
+	return sprintf( '#%02x%02x%02x', (int) $r, (int) $g, (int) $b );
+}
+
+/**
  * Set default front page and blog options on theme switch (one-time).
  * Users can change these later in Settings > Reading.
  */

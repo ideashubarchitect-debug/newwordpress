@@ -1,11 +1,11 @@
 /*
  Theme Name:   WP Store Child
  Theme URI:    https://example.com/wp-store-child
- Description:  Child theme of WP Store for safe customizations and a polished WordPress site
+ Description:  Child theme of WP Store for this website – polished layout, typography, and branding
  Author:       Your Name
  Author URI:   https://example.com
  Template:     wp-store
- Version:      1.0.0
+ Version:      1.1.0
  License:      GNU General Public License v2 or later
  License URI:  http://www.gnu.org/licenses/gpl-2.0.html
  Text Domain:  wp-store-child
@@ -13,37 +13,307 @@
 */
 
 /* ==========================================================================
-   Child theme overrides and enhancements
+   CSS variables – site-wide branding
    ========================================================================== */
-
-/* Improve readability and spacing */
-.site-content {
-	max-width: 1200px;
-	margin-left: auto;
-	margin-right: auto;
+:root {
+	--wpstore-child-font-sans: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	--wpstore-child-font-serif: "Droid Serif", Georgia, serif;
+	--wpstore-child-color-primary: #e85d04;
+	--wpstore-child-color-primary-dark: #c24a03;
+	--wpstore-child-color-text: #2d3748;
+	--wpstore-child-color-text-light: #718096;
+	--wpstore-child-color-bg: #ffffff;
+	--wpstore-child-color-bg-alt: #f7fafc;
+	--wpstore-child-color-border: #e2e8f0;
+	--wpstore-child-radius: 4px;
+	--wpstore-child-radius-lg: 8px;
+	--wpstore-child-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+	--wpstore-child-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.1);
+	--wpstore-child-container: 1200px;
+	--wpstore-child-spacing: 1.5rem;
 }
 
-/* Refined typography */
+/* ==========================================================================
+   Base – typography and body
+   ========================================================================== */
+html {
+	scroll-behavior: smooth;
+}
+
 body {
+	font-family: var(--wpstore-child-font-sans);
+	font-size: 16px;
+	line-height: 1.6;
+	color: var(--wpstore-child-color-text);
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
 
-/* Ensure focus styles for accessibility */
+/* ==========================================================================
+   Layout – content width and spacing
+   ========================================================================== */
+.site-content {
+	max-width: var(--wpstore-child-container);
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: var(--wpstore-child-spacing);
+	padding-right: var(--wpstore-child-spacing);
+}
+
+.ed-container {
+	max-width: var(--wpstore-child-container);
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: var(--wpstore-child-spacing);
+	padding-right: var(--wpstore-child-spacing);
+}
+
+/* ==========================================================================
+   Header – this website branding
+   ========================================================================== */
+.site-header {
+	box-shadow: var(--wpstore-child-shadow);
+}
+
+.top-header {
+	background: var(--wpstore-child-color-bg-alt);
+	border-bottom: 1px solid var(--wpstore-child-color-border);
+}
+
+.buttom-header {
+	background: var(--wpstore-child-color-bg);
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+.site-title {
+	font-weight: 700;
+	font-size: 1.5rem;
+	letter-spacing: -0.02em;
+}
+
+.site-title a {
+	color: var(--wpstore-child-color-text);
+}
+
+.site-title a:hover {
+	color: var(--wpstore-child-color-primary);
+}
+
+.site-description {
+	color: var(--wpstore-child-color-text-light);
+	font-size: 0.9rem;
+	margin-top: 0.25rem;
+}
+
+/* Main navigation */
+.menu-wrap {
+	background: var(--wpstore-child-color-bg);
+	border-top: 1px solid var(--wpstore-child-color-border);
+}
+
+.main-navigation ul li a {
+	font-weight: 500;
+	padding: 0.85rem 1rem;
+	transition: color 0.2s ease, background 0.2s ease;
+}
+
+.main-navigation ul li a:hover,
+.main-navigation ul li.current-menu-item > a {
+	color: var(--wpstore-child-color-primary);
+}
+
+.main-navigation ul li ul {
+	box-shadow: var(--wpstore-child-shadow-hover);
+	border-radius: var(--wpstore-child-radius);
+	border: 1px solid var(--wpstore-child-color-border);
+}
+
+/* ==========================================================================
+   Buttons and links
+   ========================================================================== */
+a {
+	color: var(--wpstore-child-color-primary);
+	transition: color 0.2s ease;
+}
+
+a:hover {
+	color: var(--wpstore-child-color-primary-dark);
+}
+
 a:focus,
 button:focus {
-	outline: 2px solid currentColor;
+	outline: 2px solid var(--wpstore-child-color-primary);
 	outline-offset: 2px;
 }
 
-/* Footer copyright area */
-.site-info .copyright-text {
-	font-size: 0.9rem;
+/* Primary-style buttons (e.g. slider, CTAs) */
+.entry-content .button,
+.entry-content input[type="submit"],
+.cta-content a,
+a.button,
+button.button {
+	display: inline-block;
+	padding: 0.6rem 1.25rem;
+	background: var(--wpstore-child-color-primary);
+	color: #fff !important;
+	border-radius: var(--wpstore-child-radius);
+	font-weight: 600;
+	transition: background 0.2s ease, transform 0.15s ease;
 }
 
-/* Responsive images */
+.entry-content .button:hover,
+.entry-content input[type="submit"]:hover,
+.cta-content a:hover,
+a.button:hover,
+button.button:hover {
+	background: var(--wpstore-child-color-primary-dark);
+	color: #fff !important;
+}
+
+/* ==========================================================================
+   Content – entries and pages
+   ========================================================================== */
+.entry-header .entry-title {
+	font-size: 1.75rem;
+	line-height: 1.3;
+	margin-bottom: 0.5rem;
+}
+
+.entry-header .entry-title a {
+	color: var(--wpstore-child-color-text);
+}
+
+.entry-header .entry-title a:hover {
+	color: var(--wpstore-child-color-primary);
+}
+
+.entry-content,
+.entry-summary {
+	color: var(--wpstore-child-color-text);
+}
+
 .entry-content img,
 .widget img {
 	height: auto;
 	max-width: 100%;
+	border-radius: var(--wpstore-child-radius);
+}
+
+/* Section titles (homepage, blog, etc.) */
+.section-title {
+	font-size: 1.5rem;
+	font-weight: 700;
+	margin-bottom: 1.25rem;
+	color: var(--wpstore-child-color-text);
+}
+
+.section-title span {
+	border-bottom: 3px solid var(--wpstore-child-color-primary);
+	padding-bottom: 0.25rem;
+}
+
+/* ==========================================================================
+   Footer – this website
+   ========================================================================== */
+.site-footer {
+	background: var(--wpstore-child-color-text);
+	color: #e2e8f0;
+	margin-top: 3rem;
+}
+
+.footer-top,
+.top-footer {
+	background: rgba(0, 0, 0, 0.15);
+}
+
+.footer-block .widget-title,
+.footer-block h2.widget-title {
+	color: #fff;
+	font-size: 1rem;
+	font-weight: 600;
+	margin-bottom: 1rem;
+}
+
+.footer-block a {
+	color: #cbd5e0;
+}
+
+.footer-block a:hover {
+	color: #fff;
+}
+
+.site-info {
+	background: rgba(0, 0, 0, 0.25);
+	padding: 1.25rem 0;
+}
+
+.site-info .copyright-text {
+	font-size: 0.9rem;
+	color: #a0aec0;
+}
+
+.site-info .copyright-text a {
+	color: #e2e8f0;
+}
+
+.site-info .copyright-text a:hover {
+	color: #fff;
+}
+
+/* Back to top */
+#back-to-top {
+	background: var(--wpstore-child-color-primary);
+	color: #fff;
+	border-radius: 50%;
+	width: 2.5rem;
+	height: 2.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background 0.2s ease;
+}
+
+#back-to-top:hover {
+	background: var(--wpstore-child-color-primary-dark);
+	color: #fff;
+}
+
+/* ==========================================================================
+   Widgets and sidebar
+   ========================================================================== */
+.widget {
+	margin-bottom: 2rem;
+}
+
+.widget-title,
+.widget h2.widget-title {
+	font-size: 1.1rem;
+	font-weight: 600;
+	color: var(--wpstore-child-color-text);
+	margin-bottom: 1rem;
+}
+
+.widget-title span {
+	border-bottom: 2px solid var(--wpstore-child-color-primary);
+	padding-bottom: 0.2rem;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 768px) {
+	.site-content,
+	.ed-container {
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+
+	.entry-header .entry-title {
+		font-size: 1.4rem;
+	}
+
+	.section-title {
+		font-size: 1.25rem;
+	}
 }
